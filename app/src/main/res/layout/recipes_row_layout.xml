@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100"
-                app:textColor="@color/red"
+                android:textColor="@color/red"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="@+id/description_textView"
                 app:layout_constraintTop_toBottomOf="@+id/heart_imageView" />
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:text="100"
-                app:textColor="@color/yellow"
+                android:textColor="@color/yellow"
                 android:textAlignment="center"
                 app:layout_constraintStart_toEndOf="@+id/heart_textView"
                 app:layout_constraintTop_toBottomOf="@+id/clock_imageView" />
