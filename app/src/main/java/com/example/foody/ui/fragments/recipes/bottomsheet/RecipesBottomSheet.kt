@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginLeft
+import androidx.core.text.trimmedLength
+import androidx.room.util.StringUtil
 import com.example.foody.R
-import com.example.foody.R.color.lightGray
+import com.example.foody.util.Constants
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import org.apache.commons.lang3.StringUtils
 
 
 class RecipesBottomSheet : BottomSheetDialogFragment() {
@@ -36,37 +38,33 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
 
         val mealTypes = resources.getStringArray(com.example.foody.R.array.meal_types)
 
-        var first = true
         for (mealType in mealTypes) {
-            val chip = Chip(this.requireContext())
+            // So apparently Chip doesn't have the constructor to specify a style programmatically, which is annoying, so we create
+            // a custom layout which just applies the style and inflate it here
+            val chip = layoutInflater.inflate(R.layout.custom_chip, chipGroup, false) as Chip
             chip.text = mealType
-            chip.setChipBackgroundColorResource(R.color.mediumGray);
             chipGroup.addView(chip)
 
-            if (first){
-                chip.isSelected = true
-                first = false
+            if (StringUtils.equalsIgnoreCase(mealType, Constants.DEFAULT_MEAL_TYPE)) {
+                chip.isChecked = true
             }
         }
     }
 
-    private fun addDietTypeChips(){
+    private fun addDietTypeChips() {
         Log.d("RecipesBottomSheet", "Adding Diet Type Chips")
         val chipGroup: ChipGroup =
             requireView().findViewById(com.example.foody.R.id.dietType_chipGroup)
 
         val dietTypes = resources.getStringArray(com.example.foody.R.array.diet_types)
 
-        var first = true
-
         for (dietType in dietTypes) {
-            val chip = Chip(this.requireContext())
+            val chip = layoutInflater.inflate(R.layout.custom_chip, chipGroup, false) as Chip
             chip.text = dietType
-            chip.setChipBackgroundColorResource(R.color.mediumGray);
             chipGroup.addView(chip)
-            if (first){
-                chip.isSelected = true
-                first = false
+
+            if (StringUtils.equalsIgnoreCase(dietType, Constants.DEFAULT_DIET_TYPE)) {
+                chip.isChecked = true
             }
         }
     }

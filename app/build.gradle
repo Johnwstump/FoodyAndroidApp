@@ -113,4 +113,6 @@ dependencies {
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
 
+    // Apache Commons
+    implementation 'org.apache.commons:commons-lang3:3.0'
 }

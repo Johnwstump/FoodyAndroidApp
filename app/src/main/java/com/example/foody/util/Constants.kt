@@ -13,8 +13,16 @@ class Constants {
         const val QUERY_ADD_RECIPE_INFORMATION = "addRecipeInformation"
         const val QUERY_FILL_INGREDIENTS = "fillIngredients"
 
-        // Room Databasse
+        // Room Database
         const val DATABASE_NAME = "recipes_database";
         const val RECIPES_TABLE = "recipes_table";
+
+        // Bottom Sheet Preferences
+        // Really need to reference the resources here, but I don't have app context and I
+        // don't love the alternatives. This is definitely smelly though.
+        // TODO
+        const val DEFAULT_RECIPES_COUNT = 50
+        const val DEFAULT_MEAL_TYPE = "main course"
+        const val DEFAULT_DIET_TYPE = "gluten free"
     }
 }
