@@ -18,11 +18,16 @@ class Constants {
         const val RECIPES_TABLE = "recipes_table";
 
         // Bottom Sheet Preferences
+        const val PREFERENCES_NAME = "foody_preferences"
+
         // Really need to reference the resources here, but I don't have app context and I
         // don't love the alternatives. This is definitely smelly though.
         // TODO
         const val DEFAULT_RECIPES_COUNT = 50
         const val DEFAULT_MEAL_TYPE = "main course"
         const val DEFAULT_DIET_TYPE = "gluten free"
+
+        const val PREFERENCES_MEAL_TYPE = "mealType"
+        const val PREFERENCES_DIET_TYPE = "dietType"
     }
 }

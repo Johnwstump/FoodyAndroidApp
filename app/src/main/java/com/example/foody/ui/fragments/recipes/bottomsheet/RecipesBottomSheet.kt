@@ -5,10 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.trimmedLength
-import androidx.room.util.StringUtil
+import androidx.core.view.children
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import com.example.foody.R
-import com.example.foody.util.Constants
+import com.example.foody.viewmodels.RecipesViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -16,6 +17,13 @@ import org.apache.commons.lang3.StringUtils
 
 
 class RecipesBottomSheet : BottomSheetDialogFragment() {
+
+    private lateinit var recipesViewModel: RecipesViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +35,15 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        recipesViewModel.readMealAndDietType.asLiveData()
+            .observe(viewLifecycleOwner, { mealAndDiet ->
+                Log.d("RecipesBottomSheet", "Retrieved preferences")
+                selectMealChip(mealAndDiet.selectedMealType)
+                selectDietChip(mealAndDiet.selectedDietType)
+            })
+
         addMealTypeChips()
         addDietTypeChips()
     }
@@ -43,9 +60,36 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
             // a custom layout which just applies the style and inflate it here
             val chip = layoutInflater.inflate(R.layout.custom_chip, chipGroup, false) as Chip
             chip.text = mealType
-            chipGroup.addView(chip)
 
-            if (StringUtils.equalsIgnoreCase(mealType, Constants.DEFAULT_MEAL_TYPE)) {
+            chipGroup.addView(chip)
+        }
+
+        chipGroup.setOnCheckedChangeListener { group, selectedChip ->
+            val chip = group.findViewById<Chip>(selectedChip)
+            val selectedMealType = chip.text.toString().lowercase()
+            recipesViewModel.saveMealType(selectedMealType)
+        }
+    }
+
+    private fun selectDietChip(selectedDiet: String) {
+        selectChip(selectedDiet, com.example.foody.R.id.dietType_chipGroup)
+    }
+
+    private fun selectMealChip(selectedMeal: String) {
+        selectChip(selectedMeal, com.example.foody.R.id.mealType_chipGroup)
+    }
+
+    private fun selectChip(targetItem: String, chipGroupId: Int) {
+        val chipGroup: ChipGroup =
+            requireView().findViewById(chipGroupId)
+
+        for (child in chipGroup.children) {
+            var chip = child as Chip
+
+            // Really this should be comparing some other value we're storing with or mapping onto
+            // the text so we can handle a change in display text (or language) without invalidating
+            // the preferences, but instead I'll just write this comment acknowledging my laziness
+            if (StringUtils.equalsIgnoreCase(chip.text.toString(), targetItem)) {
                 chip.isChecked = true
             }
         }
@@ -62,10 +106,11 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
             val chip = layoutInflater.inflate(R.layout.custom_chip, chipGroup, false) as Chip
             chip.text = dietType
             chipGroup.addView(chip)
-
-            if (StringUtils.equalsIgnoreCase(dietType, Constants.DEFAULT_DIET_TYPE)) {
-                chip.isChecked = true
-            }
+        }
+        chipGroup.setOnCheckedChangeListener { group, selectedChip ->
+            val chip = group.findViewById<Chip>(selectedChip)
+            val selectedDietType = chip.text.toString().lowercase()
+            recipesViewModel.saveDietType(selectedDietType)
         }
     }
 }
