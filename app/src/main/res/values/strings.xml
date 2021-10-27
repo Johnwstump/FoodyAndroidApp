@@ -6,4 +6,34 @@
     <string name="favorite_recipes_fragment">Favorites</string>
     <string name="food_joke">Joke</string>
     <string name="meal_type">Meal Type</string>
+    <string name="diet_type">Diet Type</string>
+    <string name="apply">Apply</string>
+    <string-array
+        name="meal_types">
+        <item>Main Course</item>
+        <item>Side Dish</item>
+        <item>Dessert</item>
+        <item>Appetizer</item>
+        <item>Salad</item>
+        <item>Bread</item>
+        <item>Breakfast</item>
+        <item>Soup</item>
+        <item>Beverage</item>
+        <item>Sauce</item>
+        <item>Marinade</item>
+        <item>Fingerfood</item>
+        <item>Snack</item>
+        <item>Drink</item>
+    </string-array>
+    <string-array
+        name="diet_types">
+        <item>Gluten Free</item>
+        <item>Ketogenic</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Pescetarian</item>
+        <item>Paleo</item>
+        <item>Primal</item>
+        <item>Whole30</item>
+    </string-array>
 </resources>
