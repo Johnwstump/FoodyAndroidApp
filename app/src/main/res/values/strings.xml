@@ -8,6 +8,7 @@
     <string name="meal_type">Meal Type</string>
     <string name="diet_type">Diet Type</string>
     <string name="apply">Apply</string>
+    <string name="search">Search</string>
     <string-array
         name="meal_types">
         <item>Main Course</item>

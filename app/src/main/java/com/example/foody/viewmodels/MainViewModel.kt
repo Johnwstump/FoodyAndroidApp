@@ -29,6 +29,7 @@ class MainViewModel @Inject constructor(
     }
 
     var recipesResponse: MutableLiveData<NetworkResult<Recipes>> = MutableLiveData();
+    var searchRecipesResponse: MutableLiveData<NetworkResult<Recipes>> = MutableLiveData();
 
     fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {
         getRecipesSafeCall(queries);
@@ -40,7 +41,7 @@ class MainViewModel @Inject constructor(
         if (hasInternetConnection()) {
             try {
                 val response = repository.remote.getRecipes(queries)
-                recipesResponse.value = handleRecipesResponse(response)
+                recipesResponse.value = handleResponse(response)
 
                 val recipes = recipesResponse.value!!.data
 
@@ -55,12 +56,31 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun searchRecipes(queries: Map<String, String>) = viewModelScope.launch {
+        searchRecipesSafeCall(queries);
+    }
+
+    private suspend fun searchRecipesSafeCall(queries: Map<String, String>) {
+        searchRecipesResponse.value = NetworkResult.Loading();
+
+        if (hasInternetConnection()) {
+            try {
+                val response = repository.remote.searchRecipes(queries)
+                searchRecipesResponse.value = handleResponse(response)
+            } catch (ex: Exception) {
+                searchRecipesResponse.value = NetworkResult.Error("Recipes not Found");
+            }
+        } else {
+            searchRecipesResponse.value = NetworkResult.Error("No Internet Connection.");
+        }
+    }
+
     private fun cacheRecipes(recipes: Recipes) {
         val recipesEntity = RecipesEntity(recipes)
         insertRecipes(recipesEntity)
     }
 
-    private fun handleRecipesResponse(response: Response<Recipes>): NetworkResult<Recipes>? =
+    private fun handleResponse(response: Response<Recipes>): NetworkResult<Recipes>? =
         when {
             response.message().toString().contains("timeout") -> NetworkResult.Error("Timeout.")
             response.code() == 402 -> NetworkResult.Error("API Key Limited.")
