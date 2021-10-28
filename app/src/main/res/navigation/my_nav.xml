@@ -14,7 +14,7 @@
             android:id="@+id/action_recipesFragment_to_recipesBottomSheet"
             app:destination="@id/recipesBottomSheet" />
         <argument
-            android:name="backFromBottomSheet"
+            android:name="bottomSheetSelectionChanged"
             app:argType="boolean"
             android:defaultValue="false" />
     </fragment>

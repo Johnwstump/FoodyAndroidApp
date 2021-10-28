@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.children
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import com.example.foody.R
 import com.example.foody.viewmodels.RecipesViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -51,6 +52,8 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
         requireView().apply_button.setOnClickListener {
             recipesViewModel.saveDietType(bottomSheetSelection.dietType!!)
             recipesViewModel.saveMealType(bottomSheetSelection.mealType!!)
+            val action = RecipesBottomSheetDirections.actionRecipesBottomSheetToRecipesFragment(bottomSheetSelection.selectionChanged)
+            findNavController().navigate(action)
         }
     }
 
