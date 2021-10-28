@@ -13,12 +13,14 @@ import com.example.foody.viewmodels.RecipesViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.android.synthetic.main.recipes_bottom_sheet.view.*
 import org.apache.commons.lang3.StringUtils
 
 
 class RecipesBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var recipesViewModel: RecipesViewModel
+    private var bottomSheetSelection : BottomSheetSelection = BottomSheetSelection();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,6 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         recipesViewModel.readMealAndDietType.asLiveData()
             .observe(viewLifecycleOwner, { mealAndDiet ->
                 Log.d("RecipesBottomSheet", "Retrieved preferences")
@@ -46,6 +47,11 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
 
         addMealTypeChips()
         addDietTypeChips()
+
+        requireView().apply_button.setOnClickListener {
+            recipesViewModel.saveDietType(bottomSheetSelection.dietType!!)
+            recipesViewModel.saveMealType(bottomSheetSelection.mealType!!)
+        }
     }
 
     private fun addMealTypeChips() {
@@ -67,16 +73,18 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
         chipGroup.setOnCheckedChangeListener { group, selectedChip ->
             val chip = group.findViewById<Chip>(selectedChip)
             val selectedMealType = chip.text.toString().lowercase()
-            recipesViewModel.saveMealType(selectedMealType)
+            bottomSheetSelection.mealType = selectedMealType
         }
     }
 
     private fun selectDietChip(selectedDiet: String) {
         selectChip(selectedDiet, com.example.foody.R.id.dietType_chipGroup)
+        bottomSheetSelection.dietType = selectedDiet
     }
 
     private fun selectMealChip(selectedMeal: String) {
         selectChip(selectedMeal, com.example.foody.R.id.mealType_chipGroup)
+        bottomSheetSelection.mealType = selectedMeal
     }
 
     private fun selectChip(targetItem: String, chipGroupId: Int) {
@@ -110,7 +118,7 @@ class RecipesBottomSheet : BottomSheetDialogFragment() {
         chipGroup.setOnCheckedChangeListener { group, selectedChip ->
             val chip = group.findViewById<Chip>(selectedChip)
             val selectedDietType = chip.text.toString().lowercase()
-            recipesViewModel.saveDietType(selectedDietType)
+            bottomSheetSelection.dietType = selectedDietType
         }
     }
 }
