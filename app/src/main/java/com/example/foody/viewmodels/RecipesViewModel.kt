@@ -9,6 +9,7 @@ import com.example.foody.util.Constants.Companion.API_KEY
 import com.example.foody.util.Constants.Companion.DEFAULT_DIET_TYPE
 import com.example.foody.util.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.example.foody.util.Constants.Companion.DEFAULT_RECIPES_COUNT
+import com.example.foody.util.Constants.Companion.DIET_TYPE_ALL
 import com.example.foody.util.Constants.Companion.QUERY_ADD_RECIPE_INFORMATION
 import com.example.foody.util.Constants.Companion.QUERY_API_KEY
 import com.example.foody.util.Constants.Companion.QUERY_DIET
@@ -21,6 +22,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 @HiltViewModel
@@ -62,7 +64,9 @@ class RecipesViewModel @Inject constructor(
         queries[QUERY_NUMBER] = DEFAULT_RECIPES_COUNT.toString()
         queries[QUERY_API_KEY] = API_KEY
         queries[QUERY_TYPE] = mealType
-        queries[QUERY_DIET] = dietType
+        if (!StringUtils.equals(dietType, DIET_TYPE_ALL)){
+            queries[QUERY_DIET] = dietType
+        }
         queries[QUERY_ADD_RECIPE_INFORMATION] = "true"
         queries[QUERY_FILL_INGREDIENTS] = "true"
 

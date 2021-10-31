@@ -27,6 +27,7 @@ class Constants {
         const val DEFAULT_RECIPES_COUNT = 50
         const val DEFAULT_MEAL_TYPE = "main course"
         const val DEFAULT_DIET_TYPE = "gluten free"
+        const val DIET_TYPE_ALL = "all"
 
         const val PREFERENCES_MEAL_TYPE = "mealType"
         const val PREFERENCES_DIET_TYPE = "dietType"
