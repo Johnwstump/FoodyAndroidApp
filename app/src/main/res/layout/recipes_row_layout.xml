@@ -9,7 +9,7 @@
 
         <variable
             name="result"
-            type="com.example.foody.models.Result" />
+            type="com.example.foody.models.Recipe" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

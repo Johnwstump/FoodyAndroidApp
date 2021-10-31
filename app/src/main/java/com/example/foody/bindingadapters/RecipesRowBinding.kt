@@ -10,7 +10,7 @@ import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import coil.load
 import com.example.foody.R
-import com.example.foody.models.Result
+import com.example.foody.models.Recipe
 import com.example.foody.ui.fragments.recipes.RecipesFragmentDirections
 import org.jsoup.Jsoup
 
@@ -19,10 +19,10 @@ class RecipesRowBinding {
 
         @BindingAdapter("onRecipeClickListener")
         @JvmStatic
-        fun onRecipeClickListener(recipeRowLayout : ConstraintLayout, result : Result) {
+        fun onRecipeClickListener(recipeRowLayout : ConstraintLayout, recipe : Recipe) {
             recipeRowLayout.setOnClickListener{
                 try {
-                    val action = RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(result)
+                    val action = RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(recipe)
                     recipeRowLayout.findNavController().navigate(action)
                 }
                 catch (e : Exception){

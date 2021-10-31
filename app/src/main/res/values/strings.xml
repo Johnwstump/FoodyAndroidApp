@@ -36,7 +36,8 @@ Pretium quam vulputate dignissim suspendisse in. Pretium viverra suspendisse pot
     <string name="gluten_free">Gluten Free</string>
     <string name="vegan">Vegan</string>
     <string name="vegetarian">Vegetarian</string>
-    <string name="result_arg">recipeBundle</string>
+    <string name="recipe_arg">recipeBundle</string>
+    <string name="save_to_favorites">Save To Favorites</string>
     <string-array name="meal_types">
         <item>Main Course</item>
         <item>Side Dish</item>

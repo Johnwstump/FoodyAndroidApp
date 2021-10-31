@@ -3,6 +3,7 @@ package com.example.foody.util
 class Constants {
     companion object {
         const val BASE_URL = "https://api.spoonacular.com"
+        const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
         const val API_KEY = "2fd86f23b47d4f8c869e1f68fd2adda5"
 
         // API Query Keys
@@ -17,6 +18,7 @@ class Constants {
         // Room Database
         const val DATABASE_NAME = "recipes_database";
         const val RECIPES_TABLE = "recipes_table";
+        const val FAVORITE_RECIPES_TABLE = "favorite_recipes_table";
 
         // Bottom Sheet Preferences
         const val PREFERENCES_NAME = "foody_preferences"

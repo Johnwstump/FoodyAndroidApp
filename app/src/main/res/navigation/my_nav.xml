@@ -46,7 +46,7 @@
         android:label="Details"
         tools:layout="@layout/activity_details" >
         <argument
-            android:name="result"
-            app:argType="com.example.foody.models.Result" />
+            android:name="recipe"
+            app:argType="com.example.foody.models.Recipe" />
     </activity>
 </navigation>

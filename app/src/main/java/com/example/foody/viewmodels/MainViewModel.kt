@@ -6,7 +6,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.*
 import com.example.foody.data.Repository
-import com.example.foody.data.database.RecipesEntity
+import com.example.foody.data.database.entities.FavoritesEntity
+import com.example.foody.data.database.entities.RecipesEntity
 import com.example.foody.models.Recipes
 import com.example.foody.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,10 +23,29 @@ class MainViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     /** Room Database **/
-    val readRecipes : LiveData<List<RecipesEntity>> = repository.local.readDatabase().asLiveData()
+    val readRecipes : LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
+    val readFavoriteRecipes : LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) = viewModelScope.launch(Dispatchers.IO) {
         repository.local.insertRecipes(recipesEntity)
+    }
+
+    private fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavoriteRecipe(favoritesEntity)
+        }
+    }
+
+    private fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavoriteRecipe(favoritesEntity)
+        }
+    }
+
+    private fun deleteAllFavoriteRecipes() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteAllFavoriteRecipes()
+        }
     }
 
     var recipesResponse: MutableLiveData<NetworkResult<Recipes>> = MutableLiveData();
@@ -84,7 +104,7 @@ class MainViewModel @Inject constructor(
         when {
             response.message().toString().contains("timeout") -> NetworkResult.Error("Timeout.")
             response.code() == 402 -> NetworkResult.Error("API Key Limited.")
-            response.body()!!.results.isNullOrEmpty() -> NetworkResult.Error("Recipes not Found")
+            response.body()!!.recipes.isNullOrEmpty() -> NetworkResult.Error("Recipes not Found")
             response.isSuccessful -> NetworkResult.Success(response.body()!!)
             else -> NetworkResult.Error(response.message())
         }

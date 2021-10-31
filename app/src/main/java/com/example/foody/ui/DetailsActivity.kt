@@ -2,6 +2,7 @@ package com.example.foody.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -32,7 +33,7 @@ class DetailsActivity : AppCompatActivity() {
         fragments.add(InstructionsFragment())
 
         val resultBundle = Bundle()
-        resultBundle.putParcelable(getString(R.string.result_arg), args.result)
+        resultBundle.putParcelable(getString(R.string.recipe_arg), args.recipe)
 
         val adapter = PagerAdapter(resultBundle, fragments, this)
 
@@ -46,6 +47,11 @@ class DetailsActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.details_menu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

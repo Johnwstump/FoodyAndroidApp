@@ -1,7 +1,6 @@
 package com.example.foody.ui.fragments.recipedetails
 
 import android.os.Bundle
-import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,8 @@ import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import coil.load
 import com.example.foody.R
-import com.example.foody.models.Result
+import com.example.foody.models.Recipe
 import kotlinx.android.synthetic.main.fragment_overview.view.*
-import kotlinx.android.synthetic.main.recipes_row_layout.view.*
 import org.jsoup.Jsoup
 
 
@@ -30,7 +28,7 @@ class OverviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val arguments = requireArguments()
-        val result = requireNotNull(arguments.getParcelable<Result>(getString(R.string.result_arg)))
+        val result = requireNotNull(arguments.getParcelable<Recipe>(getString(R.string.recipe_arg)))
 
         view.main_imageView.load(result.image)
         view.overviewTitle_textView.text = result.title
