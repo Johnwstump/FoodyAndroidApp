@@ -6,8 +6,8 @@ import com.example.foody.models.Recipe
 import com.example.foody.util.Constants
 
 @Entity(tableName = Constants.FAVORITE_RECIPES_TABLE)
-class FavoritesEntity (
+class FavoritesEntity(
     @PrimaryKey(autoGenerate = true)
-    var id : Integer,
-    var recipe : Recipe
+    var id: Int,
+    var recipe: Recipe
 )
