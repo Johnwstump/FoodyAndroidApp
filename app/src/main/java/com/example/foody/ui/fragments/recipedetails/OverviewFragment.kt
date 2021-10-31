@@ -1,6 +1,7 @@
 package com.example.foody.ui.fragments.recipedetails
 
 import android.os.Bundle
+import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.example.foody.R
 import com.example.foody.models.Result
 import kotlinx.android.synthetic.main.fragment_overview.view.*
 import kotlinx.android.synthetic.main.recipes_row_layout.view.*
+import org.jsoup.Jsoup
 
 
 class OverviewFragment : Fragment() {
@@ -34,8 +36,7 @@ class OverviewFragment : Fragment() {
         view.overviewTitle_textView.text = result.title
         view.like_textView.text = result.aggregateLikes.toString()
         view.time_textView.text = result.readyInMinutes.toString()
-        view.summary_textView.text = result.summary
-
+        view.summary_textView.text = Jsoup.parse(result.summary).text()
         setHasAttribute(result.vegetarian, view.vegetarian_group);
         setHasAttribute(result.vegan, view.vegan_group);
         setHasAttribute(result.glutenFree, view.glutenFree_group);

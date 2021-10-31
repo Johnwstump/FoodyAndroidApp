@@ -12,6 +12,7 @@ import coil.load
 import com.example.foody.R
 import com.example.foody.models.Result
 import com.example.foody.ui.fragments.recipes.RecipesFragmentDirections
+import org.jsoup.Jsoup
 
 class RecipesRowBinding {
     companion object {
@@ -61,6 +62,15 @@ class RecipesRowBinding {
             imageView.load(imageUrl) {
                 crossfade(600)
                 error(R.drawable.image_not_loaded)
+            }
+        }
+
+
+        @BindingAdapter("parseHtml")
+        @JvmStatic
+        fun parseHtml(textView : TextView, string : String){
+            if (string != null){
+                textView.text = Jsoup.parse(string).text()
             }
         }
     }
