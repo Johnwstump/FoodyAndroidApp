@@ -38,6 +38,8 @@ Pretium quam vulputate dignissim suspendisse in. Pretium viverra suspendisse pot
     <string name="vegetarian">Vegetarian</string>
     <string name="recipe_arg">recipeBundle</string>
     <string name="save_to_favorites">Save To Favorites</string>
+    <string name="no_favorite_recipes">No Favorite Recipes</string>
+    <string name="delete_favorite_menu">Delete Favorite Menu</string>
     <string-array name="meal_types">
         <item>Main Course</item>
         <item>Side Dish</item>
