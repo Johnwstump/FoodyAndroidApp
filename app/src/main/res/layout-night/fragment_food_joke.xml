@@ -12,24 +12,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_food_joke_background"
+        android:background="@drawable/ic_food_joke_background_dark"
         tools:context=".ui.fragments.joke.FoodJokeFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/food_joke_cardView"
+            readJokeApiResponse="@{mainViewModel.foodJokeResponse}"
+            readJokeDatabase="@{mainViewModel.readFoodJoke}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            readJokeApiResponse="@{mainViewModel.foodJokeResponse}"
-            readJokeDatabase="@{mainViewModel.readFoodJoke}"
+            android:layout_marginBottom="24dp"
             android:visibility="invisible"
             app:cardCornerRadius="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/lightMediumGray"
+            app:strokeColor="@color/strokeColor"
             app:strokeWidth="1dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,14 +42,13 @@
                 <TextView
                     android:id="@+id/food_joke_textView"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/courgette"
                     android:text="@string/lorem_ipsum"
-                    android:textColor="@color/dark"
+                    android:textColor="@color/titleColor"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
